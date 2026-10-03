@@ -1,0 +1,33 @@
+{
+  "rules": [
+    {
+      "name": "vip-user",
+      "identity": "vip-user",
+      "strategy": "sliding_window",
+      "limit": 1000,
+      "window_seconds": 60
+    },
+    {
+      "name": "heavy-api",
+      "endpoint": "/api/heavy",
+      "strategy": "fixed_window",
+      "limit": 10,
+      "window_seconds": 60
+    }
+  ],
+  "default_rule": {
+    "name": "default",
+    "strategy": "fixed_window",
+    "limit": 100,
+    "window_seconds": 60
+  },
+  "ban": {
+    "enabled": true,
+    "violation_threshold": 5,
+    "violation_window_seconds": 60,
+    "ban_seconds": 300
+  },
+  "degrade_mode": "fail_open",
+  "whitelisted_identities": ["internal-health-checker"],
+  "whitelisted_endpoints": ["/health"]
+}
