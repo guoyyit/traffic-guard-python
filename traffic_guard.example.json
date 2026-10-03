@@ -1,0 +1,31 @@
+{
+  "default_limit": {
+    "requests": 100,
+    "window_seconds": 60,
+    "strategy": "fixed_window"
+  },
+  "interface_limits": {
+    "/api/expensive": {
+      "requests": 10,
+      "window_seconds": 60,
+      "strategy": "sliding_window"
+    },
+    "/healthz": {
+      "requests": 1000,
+      "window_seconds": 60,
+      "strategy": "fixed_window"
+    }
+  },
+  "whitelist_sources": ["127.0.0.1"],
+  "whitelist_interfaces": ["/healthz"],
+  "ban": {
+    "enabled": true,
+    "threshold": 5,
+    "violation_window_seconds": 60,
+    "ban_seconds": 300
+  },
+  "degradation": {
+    "on_backend_failure": "fail_open",
+    "local_fallback_max_keys": 10000
+  }
+}
